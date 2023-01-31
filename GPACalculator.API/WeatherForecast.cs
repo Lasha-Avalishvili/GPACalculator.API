@@ -1,5 +1,6 @@
 namespace GPACalculator.API
 {
+// washale es kodi
     public class WeatherForecast
     {
         public DateOnly Date { get; set; }
