@@ -10,12 +10,13 @@ namespace GPACalculator.API.Controllers.GPAController
     public class GPAController : ControllerBase
     {
         private readonly IStudentRepository _studentRepository;
-
-        public GPAController(IStudentRepository studentRepository)
+        private readonly ISubjectRepository _subjectRepository;
+        public GPAController(IStudentRepository studentRepository, ISubjectRepository subjectRepository)
         {
-                _studentRepository= studentRepository;  
+                _studentRepository= studentRepository; 
+            _subjectRepository = subjectRepository;
         }
-        [HttpPost] 
+        [HttpPost("Register Student")] 
         public async Task<ActionResult<StudentEntity>> AddStudent([FromBody] CreateStudentRequest request)
         {
             var student = await _studentRepository.AddStudentAsync(request);
@@ -23,6 +24,16 @@ namespace GPACalculator.API.Controllers.GPAController
              
             return Ok(student);
         }
+        [HttpPost("Register Subject")]
+        public async Task<ActionResult<SubjectEntity>> AddSubject([FromBody] CreateSubjectRequest request)
+        {
+            var subject = await _subjectRepository.AddSubjectAsync(request);
+            await _subjectRepository.SaveChangesAsync();
+
+            return Ok(subject);
+        }
+
+
 
     }
 }

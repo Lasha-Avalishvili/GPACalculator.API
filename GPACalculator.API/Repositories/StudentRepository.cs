@@ -8,11 +8,9 @@ namespace GPACalculator.API.Repositories
     public interface IStudentRepository
     {
         Task<StudentEntity> AddStudentAsync(CreateStudentRequest request);
-
-        Task SaveChangesAsync();
-        
-        
+        Task SaveChangesAsync();         
     }
+
     public class StudentRepository : IStudentRepository
     {
         private readonly AppDbContext _db;

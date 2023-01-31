@@ -11,6 +11,8 @@ builder.Services.AddDbContext<AppDbContext>(c =>
 
 builder.Services.AddControllers();
 builder.Services.AddTransient<IStudentRepository, StudentRepository>();
+builder.Services.AddTransient<ISubjectRepository, SubjectRepository>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
