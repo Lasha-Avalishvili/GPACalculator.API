@@ -8,6 +8,8 @@ namespace GPACalculator.API.Repositories
     {
         Task<GradeEntity> AddGradeAsync(CreateGradeRequest request);
         Task SaveChangesAsync();
+
+        bool Exists(int studentId, int subjectId);
     }
     public class GradeRepository : IGradeRepository
     {
@@ -23,7 +25,7 @@ namespace GPACalculator.API.Repositories
             grade.SubjectID = request.SubjectId;
             grade.StudentID = request.StudentID; 
             grade.Score = request.Score;
-            _db.Grades.AddAsync(grade);
+            await _db.Grades.AddAsync(grade);
 
             return grade;
         }
@@ -31,6 +33,11 @@ namespace GPACalculator.API.Repositories
         public async Task SaveChangesAsync()
         {
             await _db.SaveChangesAsync();
+        }
+
+        public bool Exists(int studentId, int subjectId)
+        {
+            return _db.Grades.Any(g => g.StudentID == studentId && g.SubjectID == subjectId);
         }
     }
 }

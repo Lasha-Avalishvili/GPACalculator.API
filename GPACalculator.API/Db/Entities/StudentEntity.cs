@@ -9,7 +9,6 @@
 
         public string Course { get; set; }  
 
-      //  public List<SubjectEntity> Subjects { get; set; }
-
+     
     }
 }

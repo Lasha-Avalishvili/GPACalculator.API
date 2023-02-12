@@ -8,7 +8,9 @@ namespace GPACalculator.API.Repositories
     public interface IStudentRepository
     {
         Task<StudentEntity> AddStudentAsync(CreateStudentRequest request);
-        Task SaveChangesAsync();         
+        Task SaveChangesAsync();    
+        
+        bool StudentExists(string personalId);
     }
 
     public class StudentRepository : IStudentRepository
@@ -28,16 +30,19 @@ namespace GPACalculator.API.Repositories
             student.PersonalID= request.PersonalID;
             _db.Students.AddAsync(student);  
 
-
-
             return student;
         }
-
-        
 
         public async Task SaveChangesAsync()
         {
             await _db.SaveChangesAsync();
         }
+
+        public bool StudentExists(string personalId)
+        {
+            return _db.Students.Any(s => s.PersonalID == personalId);
+        }
+
+
     }
 }

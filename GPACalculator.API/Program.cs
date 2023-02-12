@@ -1,5 +1,6 @@
 ﻿using GPACalculator.API.Db;
 using GPACalculator.API.Repositories;
+using GPACalculator.API.Validations;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,11 +11,16 @@ builder.Services.AddDbContext<AppDbContext>(c =>
 
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<AddGradeValidator>();   // 
+builder.Services.AddScoped<AddStudentValidator>();
+builder.Services.AddScoped<AddSubjectValidator>();
+
 builder.Services.AddTransient<IStudentRepository, StudentRepository>();
 builder.Services.AddTransient<ISubjectRepository, SubjectRepository>();
 builder.Services.AddTransient<IGradeRepository, GradeRepository>();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

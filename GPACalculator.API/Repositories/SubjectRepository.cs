@@ -8,8 +8,9 @@ namespace GPACalculator.API.Repositories
     public interface ISubjectRepository
     {
         Task<SubjectEntity> AddSubjectAsync(CreateSubjectRequest request);
-
         Task SaveChangesAsync();
+
+        bool SubjectExists(string name);
     }
     public class SubjectRepository : ISubjectRepository
     {
@@ -34,5 +35,11 @@ namespace GPACalculator.API.Repositories
         {
             await _db.SaveChangesAsync();
         }
+
+        public bool SubjectExists(string name)
+        {
+            return _db.Subjects.Any(x => x.Name == name);
+        }
+
     }
 }
