@@ -7,10 +7,10 @@ using GPACalculator.API.Validations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace GPACalculator.API.Controllers.GPAController
+namespace GPACalculator.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("API")]
     public class GPAController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -19,20 +19,9 @@ namespace GPACalculator.API.Controllers.GPAController
         {
             _context = context;
         }
- 
-        [HttpGet("{studentId}/grades")]
-        public async Task<ActionResult<List<GradeEntity>>> GetGrades(int studentId)
-        {
-            var grades = await _context.Grades.Where(u => u.StudentID == studentId).ToListAsync();
-            if (!grades.Any())
-            {
-                return NotFound();
-            }
-            
-            return grades;
-        }
 
-        [HttpGet("{studentId}/gpa")]
+
+        [HttpGet("{studentId}/calculate-gpa")]
         public async Task<ActionResult<double>> GetGPA(int studentId)
         {
             var student = await _context.Students.FindAsync(studentId);
@@ -44,7 +33,7 @@ namespace GPACalculator.API.Controllers.GPAController
             var grades = _context.Grades.Where(g => g.StudentID == studentId).ToList();
             if (!grades.Any())
             {
-                return NotFound();  
+                return NotFound();
             }
 
             double totalCredits = 0;
@@ -56,11 +45,11 @@ namespace GPACalculator.API.Controllers.GPAController
                 {
                     return NotFound();
                 }
-                if(grade.Score >=91 && grade.Score<=100)
+                if (grade.Score >= 91 && grade.Score <= 100)
                 {
                     total += 4 * subject.Credit;
                     totalCredits += subject.Credit;
-                } 
+                }
                 else if (grade.Score >= 81 && grade.Score <= 90)
                 {
                     total += 3 * subject.Credit;
@@ -84,18 +73,18 @@ namespace GPACalculator.API.Controllers.GPAController
                 else if (grade.Score <= 50)
                 {
                     total += 0 * subject.Credit;
-                    totalCredits += 0* subject.Credit;
+                    totalCredits += 0 * subject.Credit;
                 }
 
             }
 
-            if(total == 0 || totalCredits == 0)
+            if (total == 0 || totalCredits == 0)
             {
                 return 0;
             }
             double gpa = total / totalCredits;
             return Ok(gpa);
-   
+
         }
 
     }
