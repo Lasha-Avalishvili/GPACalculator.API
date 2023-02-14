@@ -15,8 +15,6 @@ namespace GPACalculator.API.Db
         public DbSet<SubjectEntity> Subjects { get; set; }
         public DbSet<GradeEntity> Grades { get; set; }
 
-       // public DbSet<StudentGradeEntity> StudentGrades { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

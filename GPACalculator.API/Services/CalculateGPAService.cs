@@ -6,15 +6,6 @@ namespace GPACalculator.API.Services
     {
         public double Calculate(List<StudentGradeEntity> grades)
         {
-            //we have  Score and Credit we need to get - GPA
-
-            // step1 getGP 
-
-            // step2 sum all GP * credit
-
-            // step3 sum all credits
-
-            // step 4 (all GP * credits)/ (all credits)
             double AllGP = 0;
             double AllCredits = 0;
 
@@ -58,7 +49,6 @@ namespace GPACalculator.API.Services
                 GP = 0;
             }
             return GP;
-
         }
 
 
