@@ -23,8 +23,8 @@ namespace GPACalculator.API.Repositories
         {
             var subject = new SubjectEntity();
             subject.Name = request.Name;
-            subject.Credit = request.Credit;
-            _db.Subjects.AddAsync(subject);
+            subject.Credit = request.Credit;  
+            _db.Subjects.AddAsync(subject);  
 
 
 

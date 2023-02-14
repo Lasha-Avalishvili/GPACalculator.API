@@ -14,5 +14,18 @@ namespace GPACalculator.API.Db
         public DbSet<StudentEntity> Students { get; set; }
         public DbSet<SubjectEntity> Subjects { get; set; }
         public DbSet<GradeEntity> Grades { get; set; }
+
+       // public DbSet<StudentGradeEntity> StudentGrades { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<GradeEntity>()
+                .HasOne(t => t.Subject)
+                .WithMany()
+                .HasForeignKey(t => t.SubjectID);
+        }
     }
 }
