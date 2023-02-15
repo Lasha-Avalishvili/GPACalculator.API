@@ -13,11 +13,11 @@ namespace GPACalculator.API.Controllers
 {
     [ApiController]
     [Route("API")]
-    public class GPAController : ControllerBase
+    public class GetGPAController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public GPAController(AppDbContext context)
+        public GetGPAController(AppDbContext context)
         {
             _context = context;
         }
@@ -31,7 +31,7 @@ namespace GPACalculator.API.Controllers
                 return NotFound();
             }
 
-            var grades = _context.Grades
+            var studentGrades = _context.Grades
                 .Include(g => g.Subject)
                 .Where(g => g.StudentID == studentId)
                 .Select(g => new StudentGradeEntity
@@ -42,14 +42,14 @@ namespace GPACalculator.API.Controllers
                 })
                 .ToList();
 
-            if (!grades.Any())
+            if (!studentGrades.Any())
             {
                 return NotFound();
             }
 
             var calculate = new CalculateGPAService();
-            var gpa = calculate.Calculate(grades);
-            
+            var gpa = calculate.Calculate(studentGrades);
+            gpa = Math.Round(gpa, 3);
             return Ok(gpa);
 
         }

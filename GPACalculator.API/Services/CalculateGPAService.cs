@@ -4,15 +4,15 @@ namespace GPACalculator.API.Services
 {
     public class CalculateGPAService
     {
-        public double Calculate(List<StudentGradeEntity> grades)
+        public double Calculate(List<StudentGradeEntity> studentGrades)
         {
             double AllGP = 0;
             double AllCredits = 0;
 
-            foreach (var grade in grades)
+            foreach (var studentGrade in studentGrades)
             {
-                AllGP += GetGP(grade.Score)*grade.SubjectCredits;
-                AllCredits += grade.SubjectCredits;
+                AllGP += GetGP(studentGrade.Score)* studentGrade.SubjectCredits;
+                AllCredits += studentGrade.SubjectCredits;
             }
 
             double GPA = AllGP/ AllCredits;
