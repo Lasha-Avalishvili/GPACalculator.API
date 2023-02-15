@@ -23,7 +23,7 @@ namespace GPACalculator.API.Validations
             {
                 throw new ArgumentException("Name field cannot be empty");
             }
-            if (request.Credit == null)
+            if (request.Credit == 0)
             {
                 throw new ArgumentException("Credit field cannot be empty");
             }

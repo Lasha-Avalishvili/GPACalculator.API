@@ -23,7 +23,7 @@ namespace GPACalculator.API.Services
 
         public double GetGP(int score)
         {
-            double GP = 0;
+            double GP;
             if (score <= 100 && score > 90)
             {
                 GP = 4;   
